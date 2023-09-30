@@ -585,7 +585,7 @@ Value is the ID of the specified project. This is a writable value - if changed,
 <div class="codeDemoOutput">[
     {
         <span style="color:var(--theme-string);">"user"</span>: <span style="color:var(--theme-string);">"USERNAME"</span>,
-        <span style="color:var(--theme-string);">"name"</span>: <span style="color:var(--theme-global);">"CLOUD VARIABLE NAME"</span>,
+        <span style="color:var(--theme-string);">"name"</span>: <span style="color:var(--theme-string);">"CLOUD VARIABLE NAME"</span>,
         <span style="color:var(--theme-string);">"value"</span>: <span style="color:var(--theme-global);">VALUE</span>,
         <span style="color:var(--theme-string);">"verb"</span>: <span style="color:var(--theme-string);">"set/delete/create"</span>,
     }
