@@ -1,4 +1,4 @@
-const documentation = {
+documentation = {
     "Data structures": {
         "visible": true,
         "isTitle": true
