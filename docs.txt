@@ -406,7 +406,7 @@ Value is the ID of the specified project. This is a writable value - if changed,
     <span style="color:var(--theme-string);">"title"</span>: <span style="color:var(--theme-string);">"TITLE"</span>,
     <span style="color:var(--theme-string);">"description"</span>: <span style="color:var(--theme-string);">"DESCRIPTION"</span>,
     <span style="color:var(--theme-string);">"instructions"</span>: <span style="color:var(--theme-string);">"INSTRUCTIONS"</span>,
-    <span style="color:var(--theme-string);">"visibility"e</span>: <span style="color:var(--theme-string);">"VISIBILITY"</span>,
+    <span style="color:var(--theme-string);">"visibility"</span>: <span style="color:var(--theme-string);">"VISIBILITY"</span>,
     <span style="color:var(--theme-string);">"public"</span>: <span style="color:var(--theme-global);">true</span>,
     <span style="color:var(--theme-string);">"comments_allowed"</span>: <span style="color:var(--theme-global);">true</span>,
     <span style="color:var(--theme-string);">"is_published"</span>: <span style="color:var(--theme-global);">true</span>,
@@ -579,7 +579,7 @@ Value is the ID of the specified project. This is a writable value - if changed,
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">session</span> = <span style="color:var(--theme-def);">new</span> <span style="color:var(--theme-function);">Session</span>(<span style="color:var(--theme-string)">"USERNAME"</span>, <span style="color:var(--theme-string)">"PASSWORD"</span>)
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">Project</span>(<span style="color:var(--theme-string);">"123456789"</span>)
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onReady</span> = () => {
-    <span style="color:#000;">project</span>.<span style="color: var(--theme-function)">getComments</span>(<span style="color: var(--theme-global)">0</span>, <span style="color: var(--theme-global)">1</span>).<span style="color: var(--theme-function)">then</span>(<span style="color:#000;">x</span>=><span style="color:#000;">x</span>.<span style="color:var(--theme-function);">text</span>().<span style="color:var(--theme-function);">then</span>(<span style="color:#000;">console</span>.<span style="color:var(--theme-function);">log</span>))
+    <span style="color:#000;">project</span>.<span style="color: var(--theme-function)">getCloudLogs</span>(<span style="color: var(--theme-global)">0</span>, <span style="color: var(--theme-global)">1</span>).<span style="color: var(--theme-function)">then</span>(<span style="color:#000;">x</span>=><span style="color:#000;">x</span>.<span style="color:var(--theme-function);">text</span>().<span style="color:var(--theme-function);">then</span>(<span style="color:#000;">console</span>.<span style="color:var(--theme-function);">log</span>))
 }
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">initialize</span>()</div>
 <div class="codeDemoOutput">[
