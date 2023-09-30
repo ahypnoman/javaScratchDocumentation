@@ -407,7 +407,7 @@ Value is the ID of the specified project. This is a writable value - if changed,
     <span style="color:var(--theme-string);">"description"</span>: <span style="color:var(--theme-string);">"DESCRIPTION"</span>,
     <span style="color:var(--theme-string);">"instructions"</span>: <span style="color:var(--theme-string);">"INSTRUCTIONS"</span>,
     <span style="color:var(--theme-string);">"visibility"</span>: <span style="color:var(--theme-string);">"VISIBILITY"</span>,
-    <span style="color:var(--theme-string);">"public"</span>: <span style="color:var(--theme-global);">true</span>,
+    <span style="color:var(--theme-string);">"public"e</span>: <span style="color:var(--theme-global);">true</span>,
     <span style="color:var(--theme-string);">"comments_allowed"</span>: <span style="color:var(--theme-global);">true</span>,
     <span style="color:var(--theme-string);">"is_published"</span>: <span style="color:var(--theme-global);">true</span>,
     <span style="color:var(--theme-string);">"author"</span>: {
