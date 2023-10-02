@@ -67,10 +67,13 @@ documentation = {
                     <div class="codeDemo"><h3>Syntax</h3><div class="codeDemoContainer"><span style="color:var(--theme-function);">Project</span>(<span style="color:#000;">projectId</span>)</div></div>
                     <div class="codeDemo"><h3>Example</h3><div class="codeDemoContainer"><span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">Session</span> = <span style="color:var(--theme-function);">require</span>(<span style="color:var(--theme-string)">"javascratch"</span>).<span style="color:var(--theme-function);">Session</span>
                     <span style="color:var(--theme-def);">const</span> <span style="color:#000;">session</span> = <span style="color:var(--theme-def);">new</span> <span style="color:var(--theme-function);">Session</span>(<span style="color:var(--theme-string)">"USERNAME"</span>, <span style="color:var(--theme-string)">"PASSWORD"</span>)
-                    <span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">Project</span>(<span style="color:var(--theme-string);">"123456789"</span>)</div></div></div><h3 style="text-shadow: none; margin-top: 8px">Properties:</h3>
-                    <div><h3 style="text-shadow: none; font-size: 17px"><span class="codeSmall">id</span></h3><br>
-                    Value is the ID of the specified project. This is a writable value - if changed, the targeted project will also change.
-                    <div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:#bfbfbf;"><span style="color:var(--theme-string);">"PROJECT ID"</span></div></div>
+                    <div><h3 style="text-shadow: none; font-size: 17px"><span class="codeSmall">xmlParser</span></h3><br>
+                    Value is a collection of methods for parsing XML API output.
+                    <div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:#bfbfbf;"><button class="docsLink" data-sidebarId="xmlParser">Session: xmlParser</button></div></div>
+                    </div>
+                    <div><h3 style="text-shadow: none; font-size: 17px"><span class="codeSmall">frontPage</span></h3><br>
+                    Value is a collection of methods for getting non-personal data related to the front page.
+                    <div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:#bfbfbf;"><button class="docsLink" data-sidebarId="frontPage">Session: frontPage</button></div></div>
                     </div>`,
         "children": [
             "xmlParser",
@@ -1931,7 +1934,7 @@ Value is a collection of methods for interacting with the <span class="codeSmall
 </div>
 <div style="padding-top: 8px"><h3 style="text-shadow: none; font-size: 17px"><span class="codeSmall">myStuff</span></h3><br>
 Value is a collection of methods for interacting with the myStuff API.
-<div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:#bfbfbf;"><button class="docsLink" data-sidebarId="Self: myStuff">Self: xmlProfile</button></div></div>
+<div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:#bfbfbf;"><button class="docsLink" data-sidebarId="myStuff">Self: myStuff</button></div></div>
 </div>`,
         "children": [
             "Self: xmlProfile",
