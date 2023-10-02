@@ -50,7 +50,6 @@ documentation = {
         <br>
         <h3>Notable pages</h3>
         <ul>
-        <li></li>
         <li><span class="codeSmall"><button class="docsLink" data-sidebarId="Session()">Session()</button></span></li>
         <li><span class="codeSmall"><button class="docsLink" data-sidebarId="initialize()">initialize()</button></span></li>
         <li><span class="codeSmall"><button class="docsLink" data-sidebarId="onReady()">onReady()</button></span></li>
@@ -64,7 +63,15 @@ documentation = {
     },
     "Session()": {
         "visible": true,
-        "content": "<div>Session constructor function</div>",
+        "content": `<div>Session constructor function for interacting with the Scratch API.
+                    <div class="codeDemo"><h3>Syntax</h3><div class="codeDemoContainer"><span style="color:var(--theme-function);">Project</span>(<span style="color:#000;">projectId</span>)</div></div>
+                    <div class="codeDemo"><h3>Example</h3><div class="codeDemoContainer"><span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">Session</span> = <span style="color:var(--theme-function);">require</span>(<span style="color:var(--theme-string)">"javascratch"</span>).<span style="color:var(--theme-function);">Session</span>
+                    <span style="color:var(--theme-def);">const</span> <span style="color:#000;">session</span> = <span style="color:var(--theme-def);">new</span> <span style="color:var(--theme-function);">Session</span>(<span style="color:var(--theme-string)">"USERNAME"</span>, <span style="color:var(--theme-string)">"PASSWORD"</span>)
+                    <span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">Project</span>(<span style="color:var(--theme-string);">"123456789"</span>)</div></div></div><h3 style="text-shadow: none; margin-top: 8px">Properties:</h3>
+                    <div><h3 style="text-shadow: none; font-size: 17px"><span class="codeSmall">id</span></h3><br>
+                    Value is the ID of the specified project. This is a writable value - if changed, the targeted project will also change.
+                    <div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:#bfbfbf;"><span style="color:var(--theme-string);">"PROJECT ID"</span></div></div>
+                    </div>`,
         "children": [
             "xmlParser",
             "frontPage",
@@ -1376,8 +1383,9 @@ Value is the username of the targeted user. This is a writable value - if change
 </div>
 <div style="padding-top: 8px"><h3 style="text-shadow: none; font-size: 17px"><span class="codeSmall">xmlProfile</span></h3><br>
 Value is a collection of methods for interacting with the <span class="codeSmall">site-api</span> API.
-<div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:#bfbfbf;"><button class="docsLink" data-sidebarId="xmlProfile">xmlProfile</button></div></div>
-</div>`,
+<div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:#bfbfbf;"><button class="docsLink" data-sidebarId="xmlProfile">User: xmlProfile</button></div></div>
+</div>
+`,
         "children": [
             "xmlProfile",
             "getSharedProjects()",
@@ -1920,6 +1928,10 @@ Value is the username of the targeted user. This is a writable value - if change
 <div style="padding-top: 8px"><h3 style="text-shadow: none; font-size: 17px"><span class="codeSmall">xmlProfile</span></h3><br>
 Value is a collection of methods for interacting with the <span class="codeSmall">site-api</span> API.
 <div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:#bfbfbf;"><button class="docsLink" data-sidebarId="Self: xmlProfile">Self: xmlProfile</button></div></div>
+</div>
+<div style="padding-top: 8px"><h3 style="text-shadow: none; font-size: 17px"><span class="codeSmall">myStuff</span></h3><br>
+Value is a collection of methods for interacting with the myStuff API.
+<div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:#bfbfbf;"><button class="docsLink" data-sidebarId="Self: myStuff">Self: xmlProfile</button></div></div>
 </div>`,
         "children": [
             "Self: xmlProfile",
