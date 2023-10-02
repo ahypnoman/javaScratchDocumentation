@@ -41,6 +41,7 @@ documentation = {
         "visible": false,
         "hideFromFilter": true,
         "content": `<div>Welcome to the docs - all of javaScratch's functions are documented here. Use the sidebar on the right to navigate.
+
         <h3>Please note while reading</h3>
         <ul><li>Almost all functions output a promise - the output field is the result after <span class="codeSmall">someFunction().then(x=>x.text().then(console.log))</span>.</li>
         <li>Almost all input is a string unless specified otherwise (make sure to check the code demo).</li>
