@@ -71,7 +71,7 @@ documentation = {
                     Value is a collection of methods for parsing XML API output.
                     <div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:#bfbfbf;"><button class="docsLink" data-sidebarId="xmlParser">Session: xmlParser</button></div></div>
                     </div>
-                    <div><h3 style="text-shadow: none; font-size: 17px"><span class="codeSmall">frontPage</span></h3><br>
+                    <div style="padding-top: 8px"><h3 style="text-shadow: none; font-size: 17px"><span class="codeSmall">frontPage</span></h3><br>
                     Value is a collection of methods for getting non-personal data related to the front page.
                     <div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:#bfbfbf;"><button class="docsLink" data-sidebarId="frontPage">Session: frontPage</button></div></div>
                     </div>`,
