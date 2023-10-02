@@ -43,7 +43,7 @@ documentation = {
         "content": `<div><div>Welcome to the docs - all of javaScratch's functions are documented here. Use the sidebar on the right to navigate.
         </div><br>
         <h3>Please note while reading</h3>
-        <ul><li>Almost all functions output a promise - If that is the case the output field is the result after <span class="codeSmall">someFunction().then(x=>x.text().then(console.log))</span> or after <span class="codeSmall">someFunction().then(x=>x.text().then(y=>console.log(session.xmlParser.[profileComments()/profileActivity()/profileFeatured()/collections()]))</span>.</li>
+        <ul><li>Almost all functions output a promise - If that is the case the output field is the result after <span class="codeSmall">someFunction().then(x=>x.text().then(console.log))</span> or after <span class="codeSmall">someFunction().then(x=>x.text().then(y=>console.log(session.xmlParser.someParser()))</span>.</li>
         <li>Almost all input is a string unless specified otherwise (make sure to check the code demo).</li>
         <li>Documentation is written in British English, code in American: "Initialise" and "initialize()" is not a mistake.</li>
         <li>Some APIs have been omitted, such as views, as it can be abused because there is no limit to how many times a user can view a project.</li></ul>
