@@ -754,6 +754,7 @@ An object containing key-value pairs of variable names and their values
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">Project</span>(<span style="color:var(--theme-string);">"123456789"</span>)
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onReady</span> = () => {
     <span style="color:var(--theme-def);">const</span> <span style="color: #000">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color:var(--theme-function);">CloudSocket</span>()
+    <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">connect</span>()
     <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">onOpen</span> = () => {
         <span style="color:#000;">console</span>.<span style="color:var(--theme-function);">log</span>(<span style="color:var(--theme-string)">"Socket opened!"</span>)
     }
@@ -771,6 +772,7 @@ An object containing key-value pairs of variable names and their values
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">Project</span>(<span style="color:var(--theme-string);">"123456789"</span>)
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onReady</span> = () => {
     <span style="color:var(--theme-def);">const</span> <span style="color: #000">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color:var(--theme-function);">CloudSocket</span>()
+    <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">connect</span>()
     <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">onMessage</span> = () => {
         <span style="color:#000;">console</span>.<span style="color:var(--theme-function);">log</span>(<span style="color:var(--theme-string)">"Socket received a message!"</span>)
     }
@@ -788,6 +790,7 @@ An object containing key-value pairs of variable names and their values
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">Project</span>(<span style="color:var(--theme-string);">"123456789"</span>)
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onReady</span> = () => {
     <span style="color:var(--theme-def);">const</span> <span style="color: #000">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color:var(--theme-function);">CloudSocket</span>()
+    <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">connect</span>()
     <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">onError</span> = () => {
         <span style="color:#000;">console</span>.<span style="color:var(--theme-function);">log</span>(<span style="color:var(--theme-string)">"Socket encountered an error!"</span>)
     },
@@ -805,6 +808,7 @@ An object containing key-value pairs of variable names and their values
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">Project</span>(<span style="color:var(--theme-string);">"123456789"</span>)
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onReady</span> = () => {
     <span style="color:var(--theme-def);">const</span> <span style="color: #000">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color:var(--theme-function);">CloudSocket</span>()
+    <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">connect</span>()
     <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">onClose</span> = () => {
         <span style="color:#000;">console</span>.<span style="color:var(--theme-function);">log</span>(<span style="color:var(--theme-string)">"Socket closed!"</span>)
     }
@@ -822,6 +826,7 @@ An object containing key-value pairs of variable names and their values
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">Project</span>(<span style="color:var(--theme-string);">"123456789"</span>)
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onReady</span> = () => {
     <span style="color:var(--theme-def);">const</span> <span style="color: #000">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color:var(--theme-function);">CloudSocket</span>()
+    <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">connect</span>()
     <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">onSet</span> = () => {
         <span style="color:#000;">console</span>.<span style="color:var(--theme-function);">log</span>(<span style="color:var(--theme-string)">"Variable set!"</span>)
     }
@@ -839,6 +844,7 @@ An object containing key-value pairs of variable names and their values
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">Project</span>(<span style="color:var(--theme-string);">"123456789"</span>)
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onReady</span> = () => {
     <span style="color:var(--theme-def);">const</span> <span style="color: #000">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color:var(--theme-function);">CloudSocket</span>()
+    <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">connect</span>()
     <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">onCreate</span> = () => {
         <span style="color:#000;">console</span>.<span style="color:var(--theme-function);">log</span>(<span style="color:var(--theme-string)">"Variable created!"</span>)
     }
@@ -856,6 +862,7 @@ An object containing key-value pairs of variable names and their values
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">Project</span>(<span style="color:var(--theme-string);">"123456789"</span>)
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onReady</span> = () => {
     <span style="color:var(--theme-def);">const</span> <span style="color: #000">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color:var(--theme-function);">CloudSocket</span>()
+    <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">connect</span>()
     <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">onDelete</span> = () => {
         <span style="color:#000;">console</span>.<span style="color:var(--theme-function);">log</span>(<span style="color:var(--theme-string)">"Variable deleted!"</span>)
     }
