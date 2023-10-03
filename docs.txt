@@ -711,8 +711,6 @@ Value is the ID of the specified project. This is a writable value - if changed,
         "visible": false,
         "content": `<span class="docsBanner" style="background: var(--warn-banner)">This function will not work if the session account is of "new Scratcher" status</span><div style="white-space: pre-wrap">Constructor function for cloud variable API interaction.
 
-It establishes a 'websocket' or 'socket' with the cloud server (A persistent connection allowing both the server and the client to exchange packets). The socket opens automatically, however must be manually reopened if disconnected.
-
 Note that you will need to use the cloud emoji in your code when referencing a cloud variable, e.g. <span class="codeSmall">setVar("☁ Cloud variable", 123)</span>, not <span class="codeSmall">setVar("Cloud variable", 123)</span>.
 
 The optional <span class="codeSmall">variablePresets</span> parameter takes a <span class="codeSmall"><button class="docsLink" data-sidebarId="variablePresets">variablePresets</button></span> object as an argument
@@ -874,7 +872,10 @@ An object containing key-value pairs of variable names and their values
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">Project</span>(<span style="color:var(--theme-string);">"123456789"</span>)
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onReady</span> = () => {
     <span style="color:var(--theme-def);">const</span> <span style="color: #000">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color:var(--theme-function);">CloudSocket</span>()
-    <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">close</span>()
+    <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">onOpen</span> = () => {
+        <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">close</span>()
+    }
+    <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">connect</span>()
 }
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">initialize</span>()</div></div>`
     },
@@ -919,16 +920,14 @@ An object containing key-value pairs of variable names and their values
     },
     "connect()": {
         "visible": false,
-        "content": `<span class="docsBanner" style="background: var(--warn-banner)">This function will not work if the session account is of "new Scratcher" status</span><div>Function to re-open the cloud socket connection.
+        "content": `<span class="docsBanner" style="background: var(--warn-banner)">This function will not work if the session account is of "new Scratcher" status</span><div>Function to establish a 'websocket' or 'socket' with the cloud server (A persistent connection allowing both the server and the client to exchange packets).
 <div class="codeDemo"><h3>Syntax</h3><div class="codeDemoContainer"><span style="color:var(--theme-function);">connect</span>()</div></div>
 <div class="codeDemo"><h3>Example</h3><div class="codeDemoContainer"><span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">Session</span> = <span style="color:var(--theme-function);">require</span>(<span style="color:var(--theme-string)">"javascratch"</span>).<span style="color:var(--theme-function);">Session</span>
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">session</span> = <span style="color:var(--theme-def);">new</span> <span style="color:var(--theme-function);">Session</span>(<span style="color:var(--theme-string)">"USERNAME"</span>, <span style="color:var(--theme-string)">"PASSWORD"</span>)
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">Project</span>(<span style="color:var(--theme-string);">"123456789"</span>)
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onReady</span> = () => {
     <span style="color:var(--theme-def);">const</span> <span style="color: #000">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color:var(--theme-function);">CloudSocket</span>()
-    <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">onOpen</span> = () => {
-        <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">close</span>()
-    }
+    <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">connect</span>()
 }
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">initialize</span>()</div></div>`
     },
