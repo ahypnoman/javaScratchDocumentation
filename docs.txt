@@ -711,7 +711,7 @@ Value is the ID of the specified project. This is a writable value - if changed,
         "visible": false,
         "content": `<span class="docsBanner" style="background: var(--warn-banner)">This function will not work if the session account is of "new Scratcher" status</span><div style="white-space: pre-wrap">Constructor function for cloud variable API interaction.
 
-Note that you will need to use the cloud emoji in your code when referencing a cloud variable, e.g. <span class="codeSmall">setVar("☁ Cloud variable", 123)</span>, not <span class="codeSmall">setVar("Cloud variable", 123)</span>.
+Note that you will need to use the cloud emoji in your code when referencing a cloud variable, e.g. <span class="codeSmall">setVar("☁ Cloud variable", 123)</span>, not <span class="codeSmall">setVar("Cloud variable", 123)</span>. It is important to note that "☁" is a seperate character to "☁️"
 
 The optional <span class="codeSmall">variablePresets</span> parameter takes a <span class="codeSmall"><button class="docsLink" data-sidebarId="variablePresets">variablePresets</button></span> object as an argument
 <div class="codeDemo"><h3>Syntax</h3><div class="codeDemoContainer"><span style="color:var(--theme-function);">CloudSocket</span>()
