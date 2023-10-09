@@ -724,10 +724,14 @@ The optional <span class="codeSmall">variablePresets</span> parameter takes a <s
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">initialize</span>()</div></div></div>
 <h3 style="text-shadow: none; margin-top: 8px">Properties:</h3>
 <div><h3 style="text-shadow: none; font-size: 17px"><span class="codeSmall">variables</span></h3><br>
-An object containing key-value pairs of variable names and their values
+An object containing key-value pairs of variable names and their values.
 <div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:#bfbfbf;">{
     <span style="color:var(--theme-string);">"KEY"</span>: <span style="color:var(--theme-global);">VALUE</span>
 }</div></div>
+</div>
+<div style="padding-top: 8px"><h3 style="text-shadow: none; font-size: 17px"><span class="codeSmall">socket</span></h3><br>
+A WebSocket connection. <span class="codeSmall">site-api</span> API.
+<div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:var(--there-global);">ws.js WebSocket</div></div>
 </div>`,
         "children": [
             "onOpen()",
