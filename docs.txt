@@ -731,7 +731,7 @@ An object containing key-value pairs of variable names and their values.
 </div>
 <div style="padding-top: 8px"><h3 style="text-shadow: none; font-size: 17px"><span class="codeSmall">socket</span></h3><br>
 A WebSocket connection. <span class="codeSmall">site-api</span> API.
-<div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:var(--there-global);">ws.js WebSocket</div></div>
+<div class="codeDemo"><h3>Format</h3><div class="codeDemoContainer" style="color:var(--theme-global);">ws.js WebSocket</div></div>
 </div>`,
         "children": [
             "onOpen()",
