@@ -1,4 +1,520 @@
 documentation = {
+    "Tutorials": {
+        "visible": true,
+        "isTitle": true
+    },
+    "Tutorials:Basic cloud storage tutorial":{
+           "visible": true,
+           "name": "Basic cloud storage tutorial",
+           "content": `
+<div><div>This tutorial will walk you through how to create a basic cloud storage and querying system. It will cover the all elements you will need to make simple cloud projects (both client and server side). The result of this tutorial will be a system allowing users to assign themselves "tags" and look up other people's "tags".</div>
+<br>
+<div><h3>Requirements</h3>
+<ul style="margin-top: 0">
+<li>A Scratch account with Scratcher status and that is not banned.</li>
+<li>A computer with NPM installed</li>
+<li>An IDE (Code editor) for Javascript with Node support and preferably a built-in terminal (It can be done without it, however his tutorial will not cover how)</li>
+</ul>
+Don't have NPM, Node or an IDE? Node and NPM can be downloaded <a href="https://docs.npmjs.com/downloading-and-installing-node-js-and-npm">here</a>, and a lightweight IDE called VS Code can be installed <a href="https://code.visualstudio.com/download">here</a>.</div>
+<br>
+<h3>Setting up your development environment</h3><div>
+First, create a new Node project. Once created, open your terminal and run this code: <span class="codeSmall">npm i https://github.com/ahypnoman/javaScratch</span>. This will install javaScratch and all it's dependencies.
+
+<br><br>Next, log into Scratch with an account of your choice that meets requirements and create a new project. (This tutorial will use the fictional account "abc123" and will have the password "cba321")
+
+<br><br>Now copy the project ID (the number before the last slash) in the URL (You will need this later - this tutorial will use the project ID "987654321").
+</div>
+<br>
+<h3>Creating a basic client side (Scratch)</h3><div>
+The first step in writing any cloud project is creating a rudimentary client side. This will be fleshed out later, but for now the goal is to create a system that allows you to type text that is encoded and sent over cloud variables.
+
+<br><br>The best place to start is by making a custom block to convert text into numbers so that you can communicate with the server later (this is because cloud variables can only be changed to numbers). In "Sprite1", delete the "my variable" variable and create a new custom block (This tutorial will refer to it as "E/D:Encode"). Tick "Run without screen refresh" and add a circle input (This tutorial will use the name "To encode").<br><br><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/createCustomBlock.png?raw=true" alt="Creating custom block: E/D:Encode (To Encode)" style="max-width: min(100%, 600px);">
+<br><br>Additionally create 2 sprite-only variables (this tutorial will refer to them as "E/D:Index" and "E/D:Output") and a sprite-only list (which will be referred to as "E/D:Key")
+<br><br>Now add this code to the custom block:<br><br><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/populateCustomBlock1.png?raw=true" alt="Populating custom block: E/D:Encode (To encode)" style="max-width: min(100%, 600px);">
+<br><br>This will iterate over all characters in the "To encode" argument and matches the against the "E/D:Key" list to output to the "E/D:Output" variable.
+
+<br><br>For the custom block to work you will first need to populate the "E/D:Key" list. Enter these values:
+<ol>
+<li><i>Empty</i></li>
+<li><i>Empty</i></li>
+<li><i>Empty</i></li>
+<li><i>Empty</i></li>
+<li><i>Empty</i></li>
+<li><i>Empty</i></li>
+<li><i>Empty</i></li>
+<li><i>Empty</i></li>
+<li><i>Empty</i></li>
+<li>a</li>
+<li>b</li>
+<li>c</li>
+<li>d</li>
+<li>e</li>
+<li>f</li>
+<li>g</li>
+<li>h</li>
+<li>i</li>
+<li>j</li>
+<li>k</li>
+<li>l</li>
+<li>m</li>
+<li>n</li>
+<li>o</li>
+<li>p</li>
+<li>q</li>
+<li>r</li>
+<li>s</li>
+<li>t</li>
+<li>u</li>
+<li>v</li>
+<li>1</li>
+<li>2</li>
+<li>3</li>
+<li>4</li>
+<li>5</li>
+<li>6</li>
+<li>7</li>
+<li>8</li>
+<li>9</li>
+<li>0</li>
+<li>-</li>
+<li>_</li>
+<li>/</li>
+<li><i>Space</i></li>
+</ol>
+Now try running the custom block with the input "abcd". You should see an output of "10111213" if your code works.
+
+<br><br>The next step is creating a prompt for the user (this is just for testing). First create a new variable and tick "Cloud variable (stored on server)". This variable will be the variable that the client uses to send data to the server (this will be referred to as "☁ To host"). Now you need to create a prompt for the user. Place an event hat block of your choice (this tutorial will use "when [space] key pressed"), then populate it with this code:
+<br><br><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/populateHat1.png?raw=true" alt="Populating hat block: when [space] key pressed" style="max-width: min(100%, 600px);"></div>
+<br>This will ask the user for in put, convert it into numbers, and then send it to the server by setting the cloud variable "☁ To host".
+
+<br><br>You can now hide all variables.
+
+<br><br>With the basics of the client side done you can now move on to the server.
+<br>
+</div>
+<br>
+<h3>Creating a basic server side (NodeJS)</h3>
+<div>
+Much like the last section, this will be a simple server side for allowing communication with the client. The goal of this section is to create a node prompt allowing the server admin to send messages to the client.
+
+Start by writing this code:
+<div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Load javaScratch and set up session
+<span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">Session</span> = <span style="color:var(--theme-function);">require</span>(<span style="color:var(--theme-string)">"javascratch"</span>).<span style="color:var(--theme-function);">Session</span>
+<span style="color:var(--theme-def);">const</span> <span style="color:#000;">session</span> = <span style="color:var(--theme-def);">new</span> <span style="color:var(--theme-function);">Session</span>(<span style="color:var(--theme-string)">"abc123"</span>, <span style="color:var(--theme-string)">"cba321"</span>)
+//Set up project variable
+<span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color: var(--theme-function)">Project</span>(<span style="color:var(--theme-string)">"987654321"</span>)
+//Event listener that runs once the session has been initialised
+<span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onReady</span> = () =&gt; {
+   //Code will go here later
+}
+//Initialise the session
+<span style="color:#000;">session</span>.<span style="color:var(--theme-function);">initialize</span>()</div></div>
+You'll need this code - or a variation of it - in every javaScratch project. It loads javaScratch, sets up a session, initialises it, then runs your code. Your code goes into the <span class="codeSmall">onReady</span> function.
+
+The next step is to create a cloud socket. This code goes into the <span class="codeSmall">onReady</span> function:
+<div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Define cloud socket variable
+<span style="color:var(--theme-def);">const</span> <span style="color:#000;">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color: var(--theme-function)">CloudSocket</span>()
+//Event listener that runs once the cloud socket connects
+<span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onOpen</span> = () =&gt; {
+   //Code will go here later
+}
+//Connect the cloud socket
+<span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">connect</span>()</div></div>
+This is another core piece of code, and you'll need it in almost all javaScratch projects. It creates a CloudSocket instance, connects it, then runs code that interacts with the Scratch cloud API.
+
+<br><br>It's worth noting of both of these code snippets is that connecting/initialising is done <i>after</i> defining an event function. This is because of the potential for the function to be defined after the API request resolves. Although the chance of this is incredibly low using javaScratch like this should be regarded as best practice.
+
+<br><br>Now that you have a basic framework for communicating with Scratch, you can move on to creating a prompt for a server admin. To do this, you'll need to install the "readline" module, which is built into node - append the start of your program with this:
+<div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Load readline
+<span style="color:var(--theme-def);">const</span> <span style="color: #000">readLine</span> = <span style="color:var(--theme-function);">require</span>(<span style="color:var(--theme-string)">"readline"</span>)
+</div></div>
+With "readline" loaded, you can create a node prompt for the user; populate the <span class="codeSmall">onOpen</span> function with this code:
+<div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Create new readline interface
+<span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">line</span> = <span style="color:#000;">readLine</span>.<span style="color:var(--theme-function);">createInterface</span>({
+   <span style="color:var(--theme-string)">"input"</span>: <span style="color:#000">process</span>.<span style="color:#000">stdin</span>
+   <span style="color:var(--theme-string)">"output"</span>: <span style="color:#000">process</span>.<span style="color:#000">stdout</span>
+})
+//Ask the admin for input
+<span style="color:#000;">line</span>.<span style="color:var(--theme-function);">question</span>(<span style="color:var(--theme-string);">"Send to client: "</span>, <span style="color:#000;">text</span> => {
+   //More code will go here later
+   <span style="color:#000">line</span>.<span style="color:var(--theme-function)">close</span>()
+})
+</div></div>
+This will create a prompt in the node console asking the admin what to send to the client. This code is temporary (like the client side), and will be changed later, but for now is necessary for programming the client side (which is the next section).
+
+<br><br>Akin to the client side, the server also needs a function to convert numbers to text. This can be done using this code (put it with your other variable declarations):
+<div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Define encode function
+<span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">encode</span> = (<span style="color:#000">toEncode</span>) => [...<span style="color: #000">toEncode</span>].<span style="color:var(--theme-function);">map</span>(<span style="color:#000">x</span> => <span style="color:#000">key</span>.<span style="color:var(--theme-function);">indexOf</span>(<span style="color:#000">x</span>.<span style="color:var(--theme-function);">toLowerCase</span>().<span style="color:var(--theme-function);">toString</span>() + <span style="color:var(--theme-global);">10</span>)).<span style="color:var(--theme-function);">join</span>("")
+</div></div>
+This function is analogous to the "E/D:Encode" function that you made for the client side. You'll also need this global constant be declared for the function to work:
+
+<div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Declare key array
+<span style="color:var(--theme-def);">const</span> <span style="color: #000">key</span> = [<span style="color:var(--theme-string)">"a"</span>, <span style="color:var(--theme-string)">"b"</span>, <span style="color:var(--theme-string)">"c"</span>, <span style="color:var(--theme-string)">"d"</span>, <span style="color:var(--theme-string)">"e"</span>, <span style="color:var(--theme-string)">"f"</span>, <span style="color:var(--theme-string)">"g"</span>, <span style="color:var(--theme-string)">"h"</span>, <span style="color:var(--theme-string)">"i"</span>, <span style="color:var(--theme-string)">"j"</span>, <span style="color:var(--theme-string)">"k"</span>, <span style="color:var(--theme-string)">"l"</span>, <span style="color:var(--theme-string)">"m"</span>, <span style="color:var(--theme-string)">"n"</span>, <span style="color:var(--theme-string)">"o"</span>, <span style="color:var(--theme-string)">"p"</span>, <span style="color:var(--theme-string)">"q"</span>, <span style="color:var(--theme-string)">"r"</span>, <span style="color:var(--theme-string)">"s"</span>, <span style="color:var(--theme-string)">"t"</span>, <span style="color:var(--theme-string)">"u"</span>, <span style="color:var(--theme-string)">"v"</span>, <span style="color:var(--theme-string)">"w"</span>, <span style="color:var(--theme-string)">"x"</span>, <span style="color:var(--theme-string)">"y"</span>, <span style="color:var(--theme-string)">"z"</span>, <span style="color:var(--theme-string)">"1"</span>, <span style="color:var(--theme-string)">"2"</span>, <span style="color:var(--theme-string)">"3"</span>, <span style="color:var(--theme-string)">"4"</span>, <span style="color:var(--theme-string)">"5"</span>, <span style="color:var(--theme-string)">"6"</span>, <span style="color:var(--theme-string)">"7"</span>, <span style="color:var(--theme-string)">"8"</span>, <span style="color:var(--theme-string)">"9"</span>, <span style="color:var(--theme-string)">"0"</span>, <span style="color:var(--theme-string)">"-"</span>, <span style="color:var(--theme-string)">"_"</span>, <span style="color:var(--theme-string)">"/"</span>, <span style="color:var(--theme-string)">" "</span>]
+</div></div>
+Before you move on to the next section of code, go back to the Scratch project and create a new cloud variable. (This tutorial will refer to it as it "☁ From host").
+
+<br><br>Now write this code before <span class="codeSmall">line.close()</span> in the callback for <span class="codeSmall">line.question()</span>
+<div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Get and handle input
+<span style="color: #000">socket</span>.<span style="color:var(--theme-function);">map</span>(<span style="color:var(--theme-string);">"☁ From host"</span>, <span style="color:var(--theme-function);">encode</span>(<span style="color:#000;">text</span>))
+</div></div>
+This code will encode admin input and send it to the user.
+</div>
+<br>
+<h3>Consolidating (1)</h3>
+<div>
+Your Scratch code should look like this:
+<br><br><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/consolidate1.png?raw=true" alt="All code in Scratch project as of this point in the tutorial" style="max-width: min(100%, 600px);">
+<br><br>And it should have these variables:
+<br><br><table>
+   <thead><tr>
+     <th colspan="2">Variables</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr>
+     <td>Visible?</td>
+     <td>Name</td>
+   </tr>
+   <tr>
+     <td>Yes</td>
+     <td>☁ From host</td>
+   </tr>
+   <tr>
+     <td>No</td>
+     <td>☁ To host</td>
+   </tr>
+   <tr>
+     <td>No</td>
+     <td>E/D:Index</td>
+   </tr>
+   <tr>
+     <td>No</td>
+     <td>E/D:Output</td>
+   </tr>
+   </tbody>
+   <thead><tr>
+     <th colspan="2">Lists</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr>
+     <td>No</td>
+     <td>E/D:Key</td>
+   </tr>
+   </tbody>
+</table>
+<br> And your code should read as follows:
+<div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Load readline
+<span style="color:var(--theme-def);">const</span> <span style="color: #000">readLine</span> = <span style="color:var(--theme-function);">require</span>(<span style="color:var(--theme-string)">"readline"</span>)
+//Load javaScratch and set up session
+<span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">Session</span> = <span style="color:var(--theme-function);">require</span>(<span style="color:var(--theme-string)">"javascratch"</span>).<span style="color:var(--theme-function);">Session</span>
+
+<span style="color:var(--theme-def);">const</span> <span style="color:#000;">session</span> = <span style="color:var(--theme-def);">new</span> <span style="color:var(--theme-function);">Session</span>(<span style="color:var(--theme-string)">"abc123"</span>, <span style="color:var(--theme-string)">"cba321"</span>)
+//Declare key array
+<span style="color:var(--theme-def);">const</span> <span style="color: #000">key</span> = [<span style="color:var(--theme-string)">"a"</span>, <span style="color:var(--theme-string)">"b"</span>, <span style="color:var(--theme-string)">"c"</span>, <span style="color:var(--theme-string)">"d"</span>, <span style="color:var(--theme-string)">"e"</span>, <span style="color:var(--theme-string)">"f"</span>, <span style="color:var(--theme-string)">"g"</span>, <span style="color:var(--theme-string)">"h"</span>, <span style="color:var(--theme-string)">"i"</span>, <span style="color:var(--theme-string)">"j"</span>, <span style="color:var(--theme-string)">"k"</span>, <span style="color:var(--theme-string)">"l"</span>, <span style="color:var(--theme-string)">"m"</span>, <span style="color:var(--theme-string)">"n"</span>, <span style="color:var(--theme-string)">"o"</span>, <span style="color:var(--theme-string)">"p"</span>, <span style="color:var(--theme-string)">"q"</span>, <span style="color:var(--theme-string)">"r"</span>, <span style="color:var(--theme-string)">"s"</span>, <span style="color:var(--theme-string)">"t"</span>, <span style="color:var(--theme-string)">"u"</span>, <span style="color:var(--theme-string)">"v"</span>, <span style="color:var(--theme-string)">"w"</span>, <span style="color:var(--theme-string)">"x"</span>, <span style="color:var(--theme-string)">"y"</span>, <span style="color:var(--theme-string)">"z"</span>, <span style="color:var(--theme-string)">"1"</span>, <span style="color:var(--theme-string)">"2"</span>, <span style="color:var(--theme-string)">"3"</span>, <span style="color:var(--theme-string)">"4"</span>, <span style="color:var(--theme-string)">"5"</span>, <span style="color:var(--theme-string)">"6"</span>, <span style="color:var(--theme-string)">"7"</span>, <span style="color:var(--theme-string)">"8"</span>, <span style="color:var(--theme-string)">"9"</span>, <span style="color:var(--theme-string)">"0"</span>, <span style="color:var(--theme-string)">"-"</span>, <span style="color:var(--theme-string)">"_"</span>, <span style="color:var(--theme-string)">"/"</span>, <span style="color:var(--theme-string)">" "</span>]
+//Set up project variable
+<span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color: var(--theme-function)">Project</span>(<span style="color:var(--theme-string)">"987654321"</span>)
+//Define encode function
+<span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">encode</span> = (<span style="color:#000">toEncode</span>) => [...<span style="color: #000">toEncode</span>].<span style="color:var(--theme-function);">map</span>(<span style="color:#000">x</span> => <span style="color:#000">key</span>.<span style="color:var(--theme-function);">indexOf</span>(<span style="color:#000">x</span>.<span style="color:var(--theme-function);">toLowerCase</span>().<span style="color:var(--theme-function);">toString</span>() + <span style="color:var(--theme-global);">10</span>)).<span style="color:var(--theme-function);">join</span>("")
+//Event listener that runs once the session has been initialised
+<span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onReady</span> = () =&gt; {
+   //Define cloud socket variable
+   <span style="color:var(--theme-def);">const</span> <span style="color:#000;">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color: var(--theme-function)">CloudSocket</span>()
+   //Event listener that runs once the cloud socket connects
+   <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onOpen</span> = () =&gt; {
+       //Create new readline interface
+       <span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">line</span> = <span style="color:#000;">readLine</span>.<span style="color:var(--theme-function);">createInterface</span>({
+           <span style="color:var(--theme-string)">"input"</span>: <span style="color:#000">process</span>.<span style="color:#000">stdin</span>
+           <span style="color:var(--theme-string)">"output"</span>: <span style="color:#000">process</span>.<span style="color:#000">stdout</span>
+       })
+       //Ask the admin for input
+       <span style="color:#000;">line</span>.<span style="color:var(--theme-function);">question</span>(<span style="color:var(--theme-string);">"Send to client: "</span>, <span style="color:#000;">text</span> => {
+           //Get and handle input
+           <span style="color: #000">socket</span>.<span style="color:var(--theme-function);">map</span>(<span style="color:var(--theme-string);">"☁ From host"</span>, <span style="color:var(--theme-function);">encode</span>(<span style="color:#000;">text</span>))
+           <span style="color:#000">line</span>.<span style="color:var(--theme-function)">close</span>()
+       })
+   }
+   //Connect the cloud socket
+   <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">connect</span>()
+}
+//Initialise the session
+<span style="color:#000;">session</span>.<span style="color:var(--theme-function);">initialize</span>()</div></div>
+Try running your code: input "abcd" when prompted, then check the Scratch project. You should see the "☁ From host" variable say "10111213"
+</div>
+<br>
+<h3>Finishing the client side</h3>
+<div>
+With a functioning way to send messages back and forth between client and server, you can now start thinking about a protocol which the client and server will use to communicate. This tutorial will use the following protocol (columns will seperated by a forward slash):
+<br><br><table>
+   <thead><tr>
+     <th colspan="3">Request protocol</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr>
+     <td>Sent by</td>
+     <td>Action</td>
+     <td>Data</td>
+   </tr>
+   <tr>
+     <td>abc123</td>
+     <td>toggletag</td>
+     <td>TAG NAME</td>
+   </tr>
+  <tr>
+     <td>abc123</td>
+     <td>gettags</td>
+     <td>TARGET USER</td>
+   </tr>
+   </tbody>
+   <thead><tr>
+     <th colspan="3">Response protocol</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr>
+     <td>Sent for</td>
+     <td>Action</td>
+     <td>Data</td>
+   </tr>
+   <tr>
+     <td>abc123</td>
+     <td>toggletag</td>
+     <td>success | failure</td>
+   </tr>
+  <tr>
+     <td>abc123</td>
+     <td>gettags</td>
+     <td>TAGS LIST</td>
+   </tr>
+   </tbody>
+</table>
+<div class="codeDemo"><h3>Example</h3><div class="codeDemoContainer">CLIENT: <span style="color:#000">abc123/gettags/griffpatch</span>
+SERVER: <span style="color:#000">abc123/gettags/tag1/tag2/tag3</span></div></div>
+With a protocol decided on, you can start to develop the client side.
+
+<br><br>This section will cover making a basic UI in a low depth and will cover communicating with the server.
+
+<br><br>First, remove the "when [space] key pressed" hat block in the project. Once done create a new global (all sprites) list (This tutorial will call it "Menu"). Expand it to fill almost all the screen, but leave a small gap at the bottom (This is so that the user can regain focus on the stage if lost). You will also need two more sprite-only lists (This tutorial will refer to them as "User:Possible tags" and "User:Tags active"). You can now hide the "☁ From host" variable.
+
+<br><br>Before you move on to making the UI and client-server communication you'll need a custom block for decoding (This tutorial will refer to this custom block as "E/D:Decode"). Populate the custom block with this code:
+
+<br><br><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/populateCustomBlock2.png?raw=true" alt="Populating custom block: E/D:Decode (To decode)" style="max-width: min(100%, 600px);">
+
+<br><br>You'll also need a custom block for splitting text as it is not built into Scratch. As this custom block will only have one use (that is, splitting decoded cloud data), it will be specific in its function. Before writing this code you will need to create two new sprite only variables for this function (This tutorial will refer to them as "Interpreter:Output" and "Interpreter:Index"). The function will also need one list (This list will be referred to as "Cloud:Current data"). Make sure to toggle on "Run without screen refresh", add one parameter (This tutorial will refer to the parameter as "to split") and populate the custom block with this code (The custom block will be referred to as "Interpreter:Split"):
+
+<br><br><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/populateCustomBlock3.png?raw=true" alt="Populating custom block: Interpreter:Split (To split)" style="max-width: min(100%, 600px);">
+<br><br>This custom block iterates over the input and adds an item to a list for every substring before forward slash (or the end oth the string) in the string.
+
+<br><br>You can now utilize the "Interpreter:Split" custom block by writing a script that updates cloud data for the rest of the project. You will need one new sprite-only variable (This tutorial will refer to it as "Cloud:Last message"):
+<br><br><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/populateHat2.png?raw=true" alt='Populating hat block: "when green flag clicked"' style="max-width: min(100%, 600px);">
+<br><br>This custom block will constantly check if the "☁ From host" variable has changed, and if so will update the "Cloud:Current data" list.
+
+<br><br>The following is the main UI and communication script. As it is not particularly relevant however is required this tutorial will only explain how the communication works. For this code you will need a new sprite-only variable (this tutorial will refer to it as "Loading:Index"). (High resolution image: Zoom in to read clearly).
+<br><br><div style="display: flex; flex-direction: column;"><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/UICode1.png/?raw=true" alt='Main code 1' style="max-width: min(100%, 600px); display: block"><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/UICode2.png?raw=true" alt='Main code 2' style="max-width: min(100%, 600px);"><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/UICode3.png?raw=true" alt='Main code 3' style="max-width: min(100%, 600px);"></div>
+<br>Communication with the server is done through variations on this code:
+<br><br><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/howToRequest.png?raw=true" alt="Demo of how to send and await messages over cloud variables" style="max-width: min(100%, 600px);">
+<br><br>This script encodes and sends a request using the previously established protocol, then waits for a response intended for the user from the server (this code also relies on the first "when green flack clicked" script being active).
+
+<br><br>With a working client side you can now finish the server side.
+</div>
+<br>
+<h3>Finishing the server side</h3>
+<div>
+The client side is finished and can send requests to the server, however is functionless if the server cannot respond. This section will cover making a complementary server for the client.
+
+<br><br>First, remove all code within <span class="codeSmall">socket.onOpen = () => {...}</span> block. You can also remove the require for "readline".
+
+<br><br>The next step is creating code that is analogous to "E/D:Decode" and "Interpreter:Split" in the client side. A function equivalent to "Interpreter:Split" isn't necessary in the server - and will be omitted - however a decode function is still needed (this function will be referred to as "decode"):
+<div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Define encode function
+<span style="color:var(--theme-def);">const</span> <span style="color:var(--theme-function)">decode</span> = (<span style="color:#000">toDecode</span>) => <span style="color:#000;">toDecode</span>.<span style="color:var(--theme-function);">match</span>(<span style="color:var(--theme-global);">/.{1,2}/g</span>).<span style="color:var(--theme-function);">map</span>(<span style="color:#000">x</span> => <span style="color:#000">key</span>[<span style="color:#000">x</span> - <span style="color:var(--theme-global);">10</span>])
+</div></div>
+Now populate <span class="codeSmall">socket.onOpen = () => {...}</span> with this code:
+<div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Wait for connection
+<span style="color:#000">console</span>.<span style="color: var(--theme-function)">log</span>(<span style="color:var(--theme-string)">"ready"</span>)
+//Reset cloud variable and wait for a short time to prevent cloud requests overlapping
+<span style="color:#000">socket</span>.<span style="color: var(--theme-function)">setVar</span>(<span style="color:var(--theme-string)">"☁ From host"</span>, <span style="color:var(--theme-string)">""</span>)
+<span style="color:var(--theme-function)">setTimeout</span>(() =>
+   //Wait for a message
+   <span style="color:#000;">socket</span>.<span style="color:var(--theme-function)">onMessage</span> = () => {
+       //Separate request into multiple variables
+       <span style="color:var(--theme-def);">const</span> <span style="color:#000">rawMessage</span> = <span style="color:var(--theme-function)">decode</span>(<span style="color:#000">socket</span>.<span style="color:#000">variables</span>[<span style="color:var(--theme-string)">"☁ To host"</span>]).<span style="color:var(--theme-function);">split</span>(<span style="color:var(--theme-string);">"/"</span>)
+       <span style="color:var(--theme-def);">const</span> <span style="color:#000">user</span> = <span style="color:#000">rawMessage</span>[<span style="color:var(--theme-global)">0</span>]
+       <span style="color:var(--theme-def);">const</span> <span style="color:#000">request</span> = <span style="color:#000">rawMessage</span>[<span style="color:var(--theme-global)">1</span>]
+       <span style="color:var(--theme-def);">const</span> <span style="color:#000">body</span> = <span style="color:#000">rawMessage</span>[<span style="color:var(--theme-global)">2</span>]
+       //Run a switch to determine how to handle the request
+       <span style="color:var(--theme-def);">switch</span> (<span style="color:#000">request</span>) {
+           <span style="color:var(--theme-def);">case</span> <span style="color:var(--theme-string);">"gettags"</span>:
+               //Handle gettags request
+               <span style="color:var(--theme-def);">if</span> (<span style="color:#000">userDataCache</span>[<span style="color:#000">body</span>]) <span style="color:#000">socket</span>.<span style="color: var(--theme-function)">setVar</span>(<span style="color:var(--theme-string)">"☁ From host"</span>, <span style="color:var(--theme-function)">encode</span>(<span style="color:#000">user</span> + <span style="color:var(--theme-string)">"/gettags/"</span> + <span style="color:#000">userDataCache</span>[<span style="color:#000">body</span>].<span style="color:#000">tags</span>.<span style="color:var(--theme-function)">join</span>(<span style="color:var(--theme-string)">""</span>)))
+               <span style="color:var(--theme-def);">else</span> <span style="color:#000">socket</span>.<span style="color: var(--theme-function)">setVar</span>(<span style="color:var(--theme-string)">"☁ From host"</span>, <span style="color:var(--theme-function)">encode</span>(<span style="color:#000">user</span> + <span style="color:var(--theme-string)">"/gettags/"</span> + <span style="color:#000">body</span> + <span style="color:var(--theme-string)">" has not selected any tags"</span>))
+               <span style="color:var(--theme-function)">setTimeout</span>(() => <span style="color:#000">socket</span>.<span style="color: var(--theme-function)">setVar</span>(<span style="color:var(--theme-string)">"☁ From host"</span>, <span style="color:var(--theme-string)">""</span>), <span style="color:var(--theme-global)">100</span>)
+               <span style="color:var(--theme-def);">break</span>
+           <span style="color:var(--theme-def);">case</span> <span style="color:var(--theme-string);">"toggletag"</span>:
+               //Handle toggletag request
+               <span style="color:var(--theme-def);">if</span> (!<span style="color:#000">userDataCache</span>[<span style="color:#000">user</span>]) <span style="color:#000">userDataCache</span>[<span style="color:#000">user</span>] = {<span style="color:var(--theme-string)">"tags"</span>: [<span style="color:#000">body</span>]}
+               <span style="color:var(--theme-def);">else</span> <span style="color:var(--theme-def);">if</span> (<span style="color:#000">userDataCache</span>[<span style="color:#000">user</span>].<span style="color:#000">tags</span>.<span style="color:var(--theme-function)">includes</span>(<span style="color:#000">body</span>)) <span style="color:#000">userDataCache</span>[<span style="color:#000">user</span>].<span style="color:#000">tags</span> = <span style="color:#000">userDataCache</span>[<span style="color:#000">user</span>].<span style="color:#000">tags</span>.<span style="color:var(--theme-function)">filter</span>(<span style="color:#000">x</span> => <span style="color:#000">x</span> !== <span style="color:#000">body</span>)
+               <span style="color:var(--theme-def);">else</span> <span style="color:#000">userDataCache</span>[<span style="color:#000">user</span>].<span style="color:#000">tags</span>.<span style="color:var(--theme-function)">push</span>(<span style="color:#000">body</span>)
+               <span style="color:#000">socket</span>.<span style="color: var(--theme-function)">setVar</span>(<span style="color:var(--theme-string)">"☁ From host"</span>, <span style="color:var(--theme-function)">encode</span>(<span style="color:#000">user</span> + <span style="color:var(--theme-string)">"/toggletag/success"</span>))
+               <span style="color:var(--theme-function)">setTimeout</span>(() => <span style="color:#000">socket</span>.<span style="color: var(--theme-function)">setVar</span>(<span style="color:var(--theme-string)">"☁ From host"</span>, <span style="color:var(--theme-string)">""</span>), <span style="color:var(--theme-global)">100</span>)
+               <span style="color:var(--theme-def);">break</span>
+       }
+   }, <span style="color:var(--theme-global)">100</span>)
+</div></div>
+This code is the counterpart to the client communication code; it establishes a connection then waits for and handles messages using <span class="codeSmall">session.onMessage</span> and a switch statement with a case for every request type.
+
+<br><br>This code won't work yet as the user data variable has not been declared. With your other global variable declarations define it like this (This variable will be referred to as "userDataCache"):
+<div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Declare user data cache
+<span style="color:var(--theme-def);">const</span> <span style="color: #000">userDataCache</span> = &#123;}
+</div></div>
+You can now test your code, and it should work.
+</div>
+<br>
+<h3>Consolidating (2)</h3><div>
+Your Scratch code should contain these snippets:
+<br><br><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/populateCustomBlock1.png?raw=true" alt="Encode custom block" style="max-width: min(100%, 600px);">
+<br><br><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/populateCustomBlock2.png?raw=true" alt="Decode custom block" style="max-width: min(100%, 600px);">
+<br><br><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/populateCustomBlock3.png?raw=true" alt="Interpret custom block" style="max-width: min(100%, 600px);">
+<br><br><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/populateHat2.png?raw=true" alt='Secondary code' style="max-width: min(100%, 600px);">
+<br><br><div style="display: flex; flex-direction: column;"><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/UICode1.png/?raw=true" alt='Main code 1' style="max-width: min(100%, 600px); display: block"><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/UICode2.png?raw=true" alt='Main code 2' style="max-width: min(100%, 600px);"><img src="https://github.com/ahypnoman/javaScratchDocumentation/blob/main/images/UICode3.png?raw=true" alt='Main code 3' style="max-width: min(100%, 600px);"></div>
+<br><br>And it should have these variables:
+<br><br><table>
+   <thead><tr>
+     <th colspan="2">Variables</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr>
+     <td>Visible?</td>
+     <td>Name</td>
+   </tr>
+   <tr>
+     <td>No</td>
+     <td>☁ From host</td>
+   </tr>
+   <tr>
+     <td>No</td>
+     <td>☁ To host</td>
+   </tr>
+   <tr>
+     <td>No</td>
+     <td>Cloud:Last message</td>
+   </tr>
+   <tr>
+     <td>No</td>
+     <td>E/D:Index</td>
+   </tr>
+   <tr>
+     <td>No</td>
+     <td>E/D:Output</td>
+   </tr>
+   <tr>
+     <td>No</td>
+     <td>Interpreter:Index</td>
+   </tr>
+   <tr>
+     <td>No</td>
+     <td>Interpreter:Output</td>
+   </tr>
+   <tr>
+     <td>No</td>
+     <td>Loading:Index</td>
+   </tr>
+   </tbody>
+   <thead><tr>
+     <th colspan="2">Lists</th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr>
+     <td>No</td>
+     <td>Cloud:Current data</td>
+   </tr>
+   <tr>
+     <td>No</td>
+     <td>E/D:Key</td>
+   </tr>
+   <tr>
+     <td>Yes</td>
+     <td>Menu</td>
+   </tr>
+   <tr>
+     <td>No</td>
+     <td>User:Possible tags</td>
+   </tr>
+   <tr>
+     <td>No</td>
+     <td>User:Tags active</td>
+   </tr>
+   </tbody>
+</table>
+
+<br>Your server code should read as follows:
+<div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Load readline
+<span style="color:var(--theme-def);">const</span> <span style="color: #000">readLine</span> = <span style="color:var(--theme-function);">require</span>(<span style="color:var(--theme-string)">"readline"</span>)
+//Load javaScratch and set up session
+<span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">Session</span> = <span style="color:var(--theme-function);">require</span>(<span style="color:var(--theme-string)">"javascratch"</span>).<span style="color:var(--theme-function);">Session</span>
+
+<span style="color:var(--theme-def);">const</span> <span style="color:#000;">session</span> = <span style="color:var(--theme-def);">new</span> <span style="color:var(--theme-function);">Session</span>(<span style="color:var(--theme-string)">"abc123"</span>, <span style="color:var(--theme-string)">"cba321"</span>)
+//Set up project variable
+<span style="color:var(--theme-def);">const</span> <span style="color:#000;">project</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">session</span>.<span style="color: var(--theme-function)">Project</span>(<span style="color:var(--theme-string)">"987654321"</span>)
+//Declare key array
+<span style="color:var(--theme-def);">const</span> <span style="color: #000">key</span> = [<span style="color:var(--theme-string)">"a"</span>, <span style="color:var(--theme-string)">"b"</span>, <span style="color:var(--theme-string)">"c"</span>, <span style="color:var(--theme-string)">"d"</span>, <span style="color:var(--theme-string)">"e"</span>, <span style="color:var(--theme-string)">"f"</span>, <span style="color:var(--theme-string)">"g"</span>, <span style="color:var(--theme-string)">"h"</span>, <span style="color:var(--theme-string)">"i"</span>, <span style="color:var(--theme-string)">"j"</span>, <span style="color:var(--theme-string)">"k"</span>, <span style="color:var(--theme-string)">"l"</span>, <span style="color:var(--theme-string)">"m"</span>, <span style="color:var(--theme-string)">"n"</span>, <span style="color:var(--theme-string)">"o"</span>, <span style="color:var(--theme-string)">"p"</span>, <span style="color:var(--theme-string)">"q"</span>, <span style="color:var(--theme-string)">"r"</span>, <span style="color:var(--theme-string)">"s"</span>, <span style="color:var(--theme-string)">"t"</span>, <span style="color:var(--theme-string)">"u"</span>, <span style="color:var(--theme-string)">"v"</span>, <span style="color:var(--theme-string)">"w"</span>, <span style="color:var(--theme-string)">"x"</span>, <span style="color:var(--theme-string)">"y"</span>, <span style="color:var(--theme-string)">"z"</span>, <span style="color:var(--theme-string)">"1"</span>, <span style="color:var(--theme-string)">"2"</span>, <span style="color:var(--theme-string)">"3"</span>, <span style="color:var(--theme-string)">"4"</span>, <span style="color:var(--theme-string)">"5"</span>, <span style="color:var(--theme-string)">"6"</span>, <span style="color:var(--theme-string)">"7"</span>, <span style="color:var(--theme-string)">"8"</span>, <span style="color:var(--theme-string)">"9"</span>, <span style="color:var(--theme-string)">"0"</span>, <span style="color:var(--theme-string)">"-"</span>, <span style="color:var(--theme-string)">"_"</span>, <span style="color:var(--theme-string)">"/"</span>, <span style="color:var(--theme-string)">" "</span>]
+//Declare user data cache
+<span style="color:var(--theme-def);">const</span> <span style="color: #000">userDataCache</span> = &#123;}
+//Define encode function
+<span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">encode</span> = (<span style="color:#000">toEncode</span>) => [...<span style="color: #000">toEncode</span>].<span style="color:var(--theme-function);">map</span>(<span style="color:#000">x</span> => <span style="color:#000">key</span>.<span style="color:var(--theme-function);">indexOf</span>(<span style="color:#000">x</span>.<span style="color:var(--theme-function);">toLowerCase</span>().<span style="color:var(--theme-function);">toString</span>() + <span style="color:var(--theme-global);">10</span>)).<span style="color:var(--theme-function);">join</span>("")
+//Define decode function
+<span style="color:var(--theme-def);">const</span> <span style="color:var(--theme-function)">decode</span> = (<span style="color:#000">toDecode</span>) => <span style="color:#000;">toDecode</span>.<span style="color:var(--theme-function);">match</span>(<span style="color:var(--theme-global);">/.{1,2}/g</span>).<span style="color:var(--theme-function);">map</span>(<span style="color:#000">x</span> => <span style="color:#000">key</span>[<span style="color:#000">x</span> - <span style="color:var(--theme-global);">10</span>])
+//Event listener that runs once the session has been initialised
+<span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onReady</span> = () =&gt; {
+   //Define cloud socket variable
+   <span style="color:var(--theme-def);">const</span> <span style="color:#000;">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color: var(--theme-function)">CloudSocket</span>()
+   //Event listener that runs once the cloud socket connects
+   <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onOpen</span> = () =&gt; {
+       //Wait for connection
+       <span style="color:#000">console</span>.<span style="color: var(--theme-function)">log</span>(<span style="color:var(--theme-string)">"ready"</span>)
+       //Reset cloud variable and wait for a short time to prevent cloud requests overlapping
+       <span style="color:#000">socket</span>.<span style="color: var(--theme-function)">setVar</span>(<span style="color:var(--theme-string)">"☁ From host"</span>, <span style="color:var(--theme-string)">""</span>)
+       <span style="color:var(--theme-function)">setTimeout</span>(() =>
+           //Wait for a message
+           <span style="color:#000;">socket</span>.<span style="color:var(--theme-function)">onMessage</span> = () => {
+               //Separate request into multiple variables
+               <span style="color:var(--theme-def);">const</span> <span style="color:#000">rawMessage</span> = <span style="color:var(--theme-function)">decode</span>(<span style="color:#000">socket</span>.<span style="color:#000">variables</span>[<span style="color:var(--theme-string)">"☁ To host"</span>]).<span style="color:var(--theme-function);">split</span>(<span style="color:var(--theme-string);">"/"</span>)
+               <span style="color:var(--theme-def);">const</span> <span style="color:#000">user</span> = <span style="color:#000">rawMessage</span>[<span style="color:var(--theme-global)">0</span>]
+               <span style="color:var(--theme-def);">const</span> <span style="color:#000">request</span> = <span style="color:#000">rawMessage</span>[<span style="color:var(--theme-global)">1</span>]
+               <span style="color:var(--theme-def);">const</span> <span style="color:#000">body</span> = <span style="color:#000">rawMessage</span>[<span style="color:var(--theme-global)">2</span>]
+               //Run a switch to determine how to handle the request
+               <span style="color:var(--theme-def);">switch</span> (<span style="color:#000">request</span>) {
+                   <span style="color:var(--theme-def);">case</span> <span style="color:var(--theme-string);">"gettags"</span>:
+                       //Handle gettags request
+                       <span style="color:var(--theme-def);">if</span> (<span style="color:#000">userDataCache</span>[<span style="color:#000">body</span>]) <span style="color:#000">socket</span>.<span style="color: var(--theme-function)">setVar</span>(<span style="color:var(--theme-string)">"☁ From host"</span>, <span style="color:var(--theme-function)">encode</span>(<span style="color:#000">user</span> + <span style="color:var(--theme-string)">"/gettags/"</span> + <span style="color:#000">userDataCache</span>[<span style="color:#000">body</span>].<span style="color:#000">tags</span>.<span style="color:var(--theme-function)">join</span>(<span style="color:var(--theme-string)">""</span>)))
+                       <span style="color:var(--theme-def);">else</span> <span style="color:#000">socket</span>.<span style="color: var(--theme-function)">setVar</span>(<span style="color:var(--theme-string)">"☁ From host"</span>, <span style="color:var(--theme-function)">encode</span>(<span style="color:#000">user</span> + <span style="color:var(--theme-string)">"/gettags/"</span> + <span style="color:#000">body</span> + <span style="color:var(--theme-string)">" has not selected any tags"</span>))
+                       <span style="color:var(--theme-function)">setTimeout</span>(() => <span style="color:#000">socket</span>.<span style="color: var(--theme-function)">setVar</span>(<span style="color:var(--theme-string)">"☁ From host"</span>, <span style="color:var(--theme-string)">""</span>), <span style="color:var(--theme-global)">100</span>)
+                       <span style="color:var(--theme-def);">break</span>
+                   <span style="color:var(--theme-def);">case</span> <span style="color:var(--theme-string);">"toggletag"</span>:
+                       //Handle toggletag request
+                       <span style="color:var(--theme-def);">if</span> (!<span style="color:#000">userDataCache</span>[<span style="color:#000">user</span>]) <span style="color:#000">userDataCache</span>[<span style="color:#000">user</span>] = {<span style="color:var(--theme-string)">"tags"</span>: [<span style="color:#000">body</span>]}
+                       <span style="color:var(--theme-def);">else</span> <span style="color:var(--theme-def);">if</span> (<span style="color:#000">userDataCache</span>[<span style="color:#000">user</span>].<span style="color:#000">tags</span>.<span style="color:var(--theme-function)">includes</span>(<span style="color:#000">body</span>)) <span style="color:#000">userDataCache</span>[<span style="color:#000">user</span>].<span style="color:#000">tags</span> = <span style="color:#000">userDataCache</span>[<span style="color:#000">user</span>].<span style="color:#000">tags</span>.<span style="color:var(--theme-function)">filter</span>(<span style="color:#000">x</span> => <span style="color:#000">x</span> !== <span style="color:#000">body</span>)
+                       <span style="color:var(--theme-def);">else</span> <span style="color:#000">userDataCache</span>[<span style="color:#000">user</span>].<span style="color:#000">tags</span>.<span style="color:var(--theme-function)">push</span>(<span style="color:#000">body</span>)
+                       <span style="color:#000">socket</span>.<span style="color: var(--theme-function)">setVar</span>(<span style="color:var(--theme-string)">"☁ From host"</span>, <span style="color:var(--theme-function)">encode</span>(<span style="color:#000">user</span> + <span style="color:var(--theme-string)">"/toggletag/success"</span>))
+                       <span style="color:var(--theme-function)">setTimeout</span>(() => <span style="color:#000">socket</span>.<span style="color: var(--theme-function)">setVar</span>(<span style="color:var(--theme-string)">"☁ From host"</span>, <span style="color:var(--theme-string)">""</span>), <span style="color:var(--theme-global)">100</span>)
+                       <span style="color:var(--theme-def);">break</span>
+               }
+           }, <span style="color:var(--theme-global)">100</span>)
+   }
+   //Connect the cloud socket
+   <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">connect</span>()
+}
+//Initialise the session
+<span style="color:#000;">session</span>.<span style="color:var(--theme-function);">initialize</span>()</div></div>
+You have finished this tutorial and can now use the server and project. If you wish to keep the server running you will need to look into hosting options yourself.
+</div>
+<br>
+<h3>Personal note</h3>
+<br>I would include in this tutorial how to validate requests to make sure that the user is who they say they are, however that requires access to the cloud history API which as of writing is down, so apologies if when you are reading this the cloud logs API is up.
+`
+       },
     "Data structures": {
         "visible": true,
         "isTitle": true
