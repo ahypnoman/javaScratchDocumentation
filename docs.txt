@@ -508,7 +508,9 @@ Your Scratch code should contain these snippets:
 }
 //Initialise the session
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">initialize</span>()</div></div>
-You have finished this tutorial and can now use the server and project. If you wish to keep the server running you will need to look into hosting options yourself.
+You can now connect the server to a database if you wish, however this tutorial will not cover how.
+
+<br><br>You have finished this tutorial and can now use the server and project. If you wish to keep the server running you will need to look into hosting options yourself.
 </div>
 <br>
 <h3>Personal note</h3>
