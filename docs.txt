@@ -515,6 +515,7 @@ You can now connect the server to a database if you wish, however this tutorial 
 <br>
 <h3>Personal note</h3>
 <br>I would include in this tutorial how to validate requests to make sure that the user is who they say they are, however that requires access to the cloud history API which as of writing is down, so apologies if when you are reading this the cloud logs API is up.
+<br><br><a href="https://scratch.mit.edu/projects/907563325/">Demo project</a>
 `
        },
     "Data structures": {
