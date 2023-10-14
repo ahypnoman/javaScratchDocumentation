@@ -115,7 +115,7 @@ The next step is to create a cloud socket. This code goes into the <span class="
 <div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Define cloud socket variable
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color: var(--theme-function)">CloudSocket</span>()
 //Event listener that runs once the cloud socket connects
-<span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onOpen</span> = () =&gt; {
+<span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">onOpen</span> = () =&gt; {
    //Code will go here later
 }
 //Connect the cloud socket
@@ -221,7 +221,7 @@ Your Scratch code should look like this:
    //Define cloud socket variable
    <span style="color:var(--theme-def);">const</span> <span style="color:#000;">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color: var(--theme-function)">CloudSocket</span>()
    //Event listener that runs once the cloud socket connects
-   <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onOpen</span> = () =&gt; {
+   <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">onOpen</span> = () =&gt; {
        //Create new readline interface
        <span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">line</span> = <span style="color:#000;">readLine</span>.<span style="color:var(--theme-function);">createInterface</span>({
            <span style="color:var(--theme-string)">"input"</span>: <span style="color:#000">process</span>.<span style="color:#000">stdin</span>
@@ -338,7 +338,7 @@ Now populate <span class="codeSmall">socket.onOpen = () => {...}</span> with thi
    //Wait for a message
    <span style="color:#000;">socket</span>.<span style="color:var(--theme-function)">onMessage</span> = () => {
        //Separate request into multiple variables
-       <span style="color:var(--theme-def);">const</span> <span style="color:#000">rawMessage</span> = <span style="color:var(--theme-function)">decode</span>(<span style="color:#000">socket</span>.<span style="color:#000">variables</span>[<span style="color:var(--theme-string)">"☁ To host"</span>]).<span style="color:var(--theme-function);">split</span>(<span style="color:var(--theme-string);">"/"</span>)
+       <span style="color:var(--theme-def);">const</span> <span style="color:#000">rawMessage</span> = <span style="color:var(--theme-function)">decode</span>(<span style="color:#000">socket</span>.<span style="color:#000">variables</span>[<span style="color:var(--theme-string)">"☁ To host"</span>]).<span style="color:var(--theme-function);">split</span>(<span style="color:var(--theme-string);">"/"</span>).<span style="color:var(--theme-function)">join</span>(<span style="color:var(--theme-string)">""</span>)
        <span style="color:var(--theme-def);">const</span> <span style="color:#000">user</span> = <span style="color:#000">rawMessage</span>[<span style="color:var(--theme-global)">0</span>]
        <span style="color:var(--theme-def);">const</span> <span style="color:#000">request</span> = <span style="color:#000">rawMessage</span>[<span style="color:var(--theme-global)">1</span>]
        <span style="color:var(--theme-def);">const</span> <span style="color:#000">body</span> = <span style="color:#000">rawMessage</span>[<span style="color:var(--theme-global)">2</span>]
@@ -471,7 +471,7 @@ Your Scratch code should contain these snippets:
    //Define cloud socket variable
    <span style="color:var(--theme-def);">const</span> <span style="color:#000;">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color: var(--theme-function)">CloudSocket</span>()
    //Event listener that runs once the cloud socket connects
-   <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onOpen</span> = () =&gt; {
+   <span style="color:#000;">socket</span>.<span style="color:var(--theme-function);">onOpen</span> = () =&gt; {
        //Wait for connection
        <span style="color:#000">console</span>.<span style="color: var(--theme-function)">log</span>(<span style="color:var(--theme-string)">"ready"</span>)
        //Reset cloud variable and wait for a short time to prevent cloud requests overlapping
@@ -480,7 +480,7 @@ Your Scratch code should contain these snippets:
            //Wait for a message
            <span style="color:#000;">socket</span>.<span style="color:var(--theme-function)">onMessage</span> = () => {
                //Separate request into multiple variables
-               <span style="color:var(--theme-def);">const</span> <span style="color:#000">rawMessage</span> = <span style="color:var(--theme-function)">decode</span>(<span style="color:#000">socket</span>.<span style="color:#000">variables</span>[<span style="color:var(--theme-string)">"☁ To host"</span>]).<span style="color:var(--theme-function);">split</span>(<span style="color:var(--theme-string);">"/"</span>)
+               <span style="color:var(--theme-def);">const</span> <span style="color:#000">rawMessage</span> = <span style="color:var(--theme-function)">decode</span>(<span style="color:#000">socket</span>.<span style="color:#000">variables</span>[<span style="color:var(--theme-string)">"☁ To host"</span>]).<span style="color:var(--theme-function);">split</span>(<span style="color:var(--theme-string);">"/"</span>).<span style="color:var(--theme-function)">join</span>(<span style="color:var(--theme-string)">""</span>)
                <span style="color:var(--theme-def);">const</span> <span style="color:#000">user</span> = <span style="color:#000">rawMessage</span>[<span style="color:var(--theme-global)">0</span>]
                <span style="color:var(--theme-def);">const</span> <span style="color:#000">request</span> = <span style="color:#000">rawMessage</span>[<span style="color:var(--theme-global)">1</span>]
                <span style="color:var(--theme-def);">const</span> <span style="color:#000">body</span> = <span style="color:#000">rawMessage</span>[<span style="color:var(--theme-global)">2</span>]
