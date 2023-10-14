@@ -109,7 +109,7 @@ Start by writing this code:
 }
 //Initialise the session
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">initialize</span>()</div></div>
-You'll need this code - or a variation of it - in every javaScratch project. It loads javaScratch, sets up a session, initialises it, then runs your code. Your code goes into the <span class="codeSmall">onReady</span> function.
+You'll need this code - or a variation of it - in every javaScratch project. It loads javaScratch, sets up a session, initialises it, then runs your code. Your code goes into the <span class="codeSmall">onReady</span> function. Note that the "username" parameter of <span class="codeSmall">Session</span> is case sensitive - if your username is not capitalised correctly cloud operations will not work.
 
 The next step is to create a cloud socket. This code goes into the <span class="codeSmall">onReady</span> function:
 <div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Define cloud socket variable
@@ -327,7 +327,7 @@ The client side is finished and can send requests to the server, however is func
 
 <br><br>The next step is creating code that is analogous to "E/D:Decode" and "Interpreter:Split" in the client side. A function equivalent to "Interpreter:Split" isn't necessary in the server - and will be omitted - however a decode function is still needed (this function will be referred to as "decode"):
 <div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Define encode function
-<span style="color:var(--theme-def);">const</span> <span style="color:var(--theme-function)">decode</span> = (<span style="color:#000">toDecode</span>) => <span style="color:#000;">toDecode</span>.<span style="color:var(--theme-function);">match</span>(<span style="color:var(--theme-global);">/.{1,2}/g</span>).<span style="color:var(--theme-function);">map</span>(<span style="color:#000">x</span> => <span style="color:#000">key</span>[<span style="color:#000">x</span> - <span style="color:var(--theme-global);">10</span>]).<span style="color:var(--theme-function);">join</span>( <span style="color:var(--theme-string);">""</span>)
+<span style="color:var(--theme-def);">const</span> <span style="color:var(--theme-function)">decode</span> = (<span style="color:#000">toDecode</span>) => <span style="color:#000;">toDecode</span>.<span style="color:var(--theme-function);">match</span>(<span style="color:var(--theme-global);">/.{1,2}/g</span>).<span style="color:var(--theme-function);">map</span>(<span style="color:#000">x</span> => <span style="color:#000">key</span>[<span style="color:#000">x</span> - <span style="color:var(--theme-global);">10</span>]).<span style="color:var(--theme-function);">join</span>(<span style="color:var(--theme-string);">""</span>)
 </div></div>
 Now populate <span class="codeSmall">socket.onOpen = () => {...}</span> with this code:
 <div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Wait for connection
@@ -465,7 +465,7 @@ Your Scratch code should contain these snippets:
 //Define encode function
 <span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">encode</span> = (<span style="color:#000">toEncode</span>) => [...<span style="color: #000">toEncode</span>].<span style="color:var(--theme-function);">map</span>(<span style="color:#000">x</span> => <span style="color:#000">key</span>.<span style="color:var(--theme-function);">indexOf</span>(<span style="color:#000">x</span>.<span style="color:var(--theme-function);">toLowerCase</span>().<span style="color:var(--theme-function);">toString</span>() + <span style="color:var(--theme-global);">10</span>)).<span style="color:var(--theme-function);">join</span>("")
 //Define decode function
-<span style="color:var(--theme-def);">const</span> <span style="color:var(--theme-function)">decode</span> = (<span style="color:#000">toDecode</span>) => <span style="color:#000;">toDecode</span>.<span style="color:var(--theme-function);">match</span>(<span style="color:var(--theme-global);">/.{1,2}/g</span>).<span style="color:var(--theme-function);">map</span>(<span style="color:#000">x</span> => <span style="color:#000">key</span>[<span style="color:#000">x</span> - <span style="color:var(--theme-global);">10</span>]).<span style="color:var(--theme-function);">join</span>( <span style="color:var(--theme-string);">""</span>)
+<span style="color:var(--theme-def);">const</span> <span style="color:var(--theme-function)">decode</span> = (<span style="color:#000">toDecode</span>) => <span style="color:#000;">toDecode</span>.<span style="color:var(--theme-function);">match</span>(<span style="color:var(--theme-global);">/.{1,2}/g</span>).<span style="color:var(--theme-function);">map</span>(<span style="color:#000">x</span> => <span style="color:#000">key</span>[<span style="color:#000">x</span> - <span style="color:var(--theme-global);">10</span>]).<span style="color:var(--theme-function);">join</span>(<span style="color:var(--theme-string);">""</span>)
 //Event listener that runs once the session has been initialised
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">onReady</span> = () =&gt; {
    //Define cloud socket variable
@@ -581,7 +581,7 @@ You can now connect the server to a database if you wish, however this tutorial 
     },
     "Session()": {
         "visible": true,
-        "content": `<div>Session constructor function for interacting with the Scratch API.
+        "content": `<span class="docsBanner" style="background: var(--warn-banner)">"username" parameter is case-sensitive</span><div>Session constructor function for interacting with the Scratch API.
                     <div class="codeDemo"><h3>Syntax</h3><div class="codeDemoContainer"><span style="color:var(--theme-function);">Project</span>(<span style="color:#000;">projectId</span>)</div></div>
                     <div class="codeDemo"><h3>Example</h3><div class="codeDemoContainer"><span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">Session</span> = <span style="color:var(--theme-function);">require</span>(<span style="color:var(--theme-string)">"javascratch"</span>).<span style="color:var(--theme-function);">Session</span>
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">session</span> = <span style="color:var(--theme-def);">new</span> <span style="color:var(--theme-function);">Session</span>(<span style="color:var(--theme-string)">"USERNAME"</span>, <span style="color:var(--theme-string)">"PASSWORD"</span>)</div></div></div><h3 style="text-shadow: none; margin-top: 8px">Properties:</h3>
