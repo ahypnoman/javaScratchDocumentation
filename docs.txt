@@ -109,9 +109,9 @@ Start by writing this code:
 }
 //Initialise the session
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">initialize</span>()</div></div>
-You'll need this code - or a variation of it - in every javaScratch project. It loads javaScratch, sets up a session, initialises it, then runs your code. Your code goes into the <span class="codeSmall">onReady</span> function. Note that the "username" parameter of <span class="codeSmall">Session</span> is case sensitive - if your username is not capitalised correctly cloud operations will not work.
+You'll need this code - or a variation of it - in every javaScratch project. It loads javaScratch, sets up a session, initialises it, then runs your code. Your code goes into the <span class="codeSmall">onReady</span> function. Note that the "username" parameter of the <span class="codeSmall">Session()</span> constructor function is case sensitive - if your username is not capitalised correctly cloud operations will not work.
 
-The next step is to create a cloud socket. This code goes into the <span class="codeSmall">onReady</span> function:
+<br><br>The next step is to create a cloud socket. This code goes into the <span class="codeSmall">onReady</span> function:
 <div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Define cloud socket variable
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">socket</span> = <span style="color:var(--theme-def);">new</span> <span style="color:#000;">project</span>.<span style="color: var(--theme-function)">CloudSocket</span>()
 //Event listener that runs once the cloud socket connects
@@ -568,10 +568,11 @@ You can now connect the server to a database if you wish, however this tutorial 
         <br>
         <h3>Notable pages</h3>
         <ul>
-        <li><span class="codeSmall"><button class="docsLink" data-sidebarId="Session()">Session()</button></span></li>
-        <li><span class="codeSmall"><button class="docsLink" data-sidebarId="initialize()">initialize()</button></span></li>
-        <li><span class="codeSmall"><button class="docsLink" data-sidebarId="onReady()">onReady()</button></span></li>
-        <li><span class="codeSmall"><button class="docsLink" data-sidebarId="CloudSocket()">CloudSocket()</button></span></li>
+        <li><span class="codeSmall"><button class="docsLink" data-sidebarId="Session()">Session()</button></span> - Session constructor</li>
+        <li><span class="codeSmall"><button class="docsLink" data-sidebarId="initialize()">initialize()</button></span> - function to log in to Scratch</li>
+        <li><span class="codeSmall"><button class="docsLink" data-sidebarId="onReady()">onReady()</button></span> - writable listener function for detecting successful initialisation</li>
+        <li><span class="codeSmall"><button class="docsLink" data-sidebarId="CloudSocket()">CloudSocket()</button></span> - cloud socket constructor function</li>
+        <li><span class="codeSmall"><button class="docsLink" data-sidebarId="Tutorials:Basic cloud storage tutorial">Basic cloud storage tutorial</button></span> - tutorial/walkthrough</li>
         </ul></div>`
     },
     "Unknown": {
