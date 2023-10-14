@@ -295,7 +295,7 @@ With a protocol decided on, you can start to develop the client side.
 
 <br><br>This section will cover making a basic UI in a low depth and will cover communicating with the server.
 
-<br><br>First, remove the "when [space] key pressed" hat block in the project. Once done create a new global (all sprites) list (This tutorial will call it "Menu"). Expand it to fill almost all the screen, but leave a small gap at the bottom (This is so that the user can regain focus on the stage if lost). You will also need two more sprite-only lists (This tutorial will refer to them as "User:Possible tags" and "User:Tags active"). You can now hide the "☁ From host" variable.
+<br><br>First, remove the "when [space] key pressed" hat block in the project. Once done create a new global (all sprites) list (This tutorial will call it "Menu"). Expand it to fill almost all the screen, but leave a small gap at the bottom (This is so that the user can regain focus on the stage if lost). You will also need two more sprite-only lists (This tutorial will refer to them as "User:Possible tags" and "User:Tags active"). Next populate "User:Possible tags" with a list of desired tags. You can now hide the "☁ From host" variable.
 
 <br><br>Before you move on to making the UI and client-server communication you'll need a custom block for decoding (This tutorial will refer to this custom block as "E/D:Decode"). Populate the custom block with this code:
 
