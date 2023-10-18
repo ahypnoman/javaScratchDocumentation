@@ -109,7 +109,7 @@ Start by writing this code:
 }
 //Initialise the session
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">initialize</span>()</div></div>
-You'll need this code - or a variation of it - in every javaScratch project. It loads javaScratch, sets up a session, initialises it, then runs your code. Your code goes into the <span class="codeSmall">onReady</span> function. Note that the "username" parameter of the <span class="codeSmall">Session()</span> constructor function is case sensitive - if your username is not capitalised correctly cloud operations will not work.
+You'll need this code - or a variation of it - in every javaScratch project. It loads javaScratch, sets up a session, initialises it, then runs your code. Your code goes into the <span class="codeSmall">onReady</span> function.
 
 <br><br>The next step is to create a cloud socket. This code goes into the <span class="codeSmall">onReady</span> function:
 <div class="codeDemo" style="margin-bottom: 8px"><h3>Code</h3><div class="codeDemoContainer">//Define cloud socket variable
@@ -536,6 +536,15 @@ You can now connect the server to a database if you wish, however this tutorial 
 }
 <span style="color:#000;">session</span>.<span style="color:var(--theme-function);">initialize</span>()</div></div>`,
     },
+    "variablePresets": {
+        "visible": true,
+        "content": `<div>Object for passing options into the session variable.
+<div class="codeDemo"><h3>Syntax</h3><div class="codeDemoContainer">{
+    <span style="color:var(--theme-string)">"sessionId"</span>: <span style="color:var(--theme-string)">"SESSION ID STRING"</span>
+    <span style="color:var(--theme-string)">"userAgent"</span>: <span style="color:var(--theme-string)">"USER AGENT STRING"</span>
+}</div></div>
+</div>`,
+    },
     "replyOptions": {
         "visible": true,
         "content": `<div>Object that determines options for replying when posting a comment, used in both the Studio() and Project() functions.
@@ -583,8 +592,9 @@ You can now connect the server to a database if you wish, however this tutorial 
     },
     "Session()": {
         "visible": true,
-        "content": `<span class="docsBanner" style="background: var(--warn-banner)">"username" parameter is case-sensitive</span><div>Session constructor function for interacting with the Scratch API.
-                    <div class="codeDemo"><h3>Syntax</h3><div class="codeDemoContainer"><span style="color:var(--theme-function);">Project</span>(<span style="color:#000;">projectId</span>)</div></div>
+        "content": `<div>Session constructor function for interacting with the Scratch API. parameter <span class="codeSmall">options</span> is follows the format of <button class="docsLink" data-sidebarId="options"><span class="codeSmall">options</span></button>. You can log in using a session ID by specifying <span class="codeSmall">.sessionId</span> in the argument for the <span class="codeSmall">options</span> parameter.
+                    <div class="codeDemo"><h3>Syntax</h3><div class="codeDemoContainer"><span style="color:var(--theme-function);">Session</span>(<span style="color:#000;">username</span>, <span style="color:#000;">password</span>)
+                    <span style="color:var(--theme-function);">Session</span>(<span style="color:#000;">username</span>, <span style="color:#000;">password</span>, <span style="color:#000;">options</span>)</div></div>
                     <div class="codeDemo"><h3>Example</h3><div class="codeDemoContainer"><span style="color:var(--theme-def);">const</span> <span style="color: var(--theme-function)">Session</span> = <span style="color:var(--theme-function);">require</span>(<span style="color:var(--theme-string)">"javascratch"</span>).<span style="color:var(--theme-function);">Session</span>
 <span style="color:var(--theme-def);">const</span> <span style="color:#000;">session</span> = <span style="color:var(--theme-def);">new</span> <span style="color:var(--theme-function);">Session</span>(<span style="color:var(--theme-string)">"USERNAME"</span>, <span style="color:var(--theme-string)">"PASSWORD"</span>)</div></div></div><h3 style="text-shadow: none; margin-top: 8px">Properties:</h3>
                     <div><h3 style="text-shadow: none; font-size: 17px"><span class="codeSmall">xmlParser</span></h3><br>
